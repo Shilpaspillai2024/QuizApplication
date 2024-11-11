@@ -72,7 +72,7 @@ const AddQuestionPage = () => {
           <h2 className="text-2xl font-bold text-center text-gray-800">Add New Question</h2>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
-            {/* Category Selection */}
+
             <div>
               <label htmlFor="category" className="block text-sm font-medium text-gray-600">
                 Category
@@ -93,7 +93,6 @@ const AddQuestionPage = () => {
               </select>
             </div>
 
-            {/* Question Text */}
             <div>
               <label htmlFor="questionText" className="block text-sm font-medium text-gray-600">
                 Question
@@ -109,7 +108,6 @@ const AddQuestionPage = () => {
               />
             </div>
 
-            {/* Options */}
             {(['A', 'B', 'C', 'D'] as Array<keyof Question['options']>).map((option) => (
               <div key={option}>
                 <label htmlFor={`option${option}`} className="block text-sm font-medium text-gray-600">
@@ -127,7 +125,6 @@ const AddQuestionPage = () => {
               </div>
             ))}
 
-            {/* Correct Answer */}
             <div>
               <label htmlFor="correctAnswer" className="block text-sm font-medium text-gray-600">
                 Correct Answer

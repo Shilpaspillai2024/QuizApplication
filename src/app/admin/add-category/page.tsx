@@ -79,8 +79,6 @@ const AddCategoryPage = () => {
               Add Category
             </button>
           </form>
-
-           {/* Display Categories directly below form */}
            <div className="mt-4">
             <h3 className="text-xl font-medium text-gray-700 mb-2">Categories</h3>
             <ul className="space-y-2">

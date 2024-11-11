@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
           correctAnswersCount++;
         } else {
           wrongAnswers.push({
-            question: question.question,
+            question: question.questionText,
             userAnswer: selectedOptionValue,
             correctAnswer: correctAnswer
           });
@@ -56,7 +56,6 @@ export async function POST(req: NextRequest) {
       userName,
       completedAt
     });
-
   } catch (error) {
     console.error("Error submitting quiz:", error);
     return NextResponse.json({ message: "Error submitting quiz" }, { status: 500 });

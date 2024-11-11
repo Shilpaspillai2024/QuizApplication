@@ -56,7 +56,7 @@ const QuizResults: React.FC = () => {
       <p>Wrong Answers: {results.wrongAnswers.length}</p>
       <p>Total Score: {results.score}%</p>
     </div>
-
+     
     {results.wrongAnswers.length > 0 && (
       <div className="mt-6">
         <h2 className="text-2xl font-semibold text-white mb-4">Wrong Answers:</h2>
