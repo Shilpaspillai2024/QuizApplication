@@ -9,7 +9,7 @@ const QuizHome: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
-
+  const [userNameError,setUserNameError] =useState<string>("")
   useEffect(() => {
     fetch("/api/admin/categories")
       .then((res) => res.json())
@@ -22,9 +22,21 @@ const QuizHome: React.FC = () => {
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
+  const validateUserName =(name:string) =>{
+    if(!name.trim()){
+      setUserNameError("Username cannot be empty.")
+      return false;
+    }else if (name.trim().length <3){
+      setUserNameError("Username must be at least 3 characters long")
+      return false;
+    }else{
+      setUserNameError("")
+      return true;
+    }
+  }
+
   const handleStartQuiz = () => {
-    if (userName && selectedCategoryId) {
-      console.log(userName, selectedCategoryId);
+    if (validateUserName(userName) && selectedCategoryId) {
       router.push(`/user/quiz/${selectedCategoryId}?name=${encodeURIComponent(userName)}`);
     }
   };
@@ -40,6 +52,9 @@ const QuizHome: React.FC = () => {
         onChange={(e) => setUserName(e.target.value)}
         className="mb-6 p-3 w-80 border border-gray-400 rounded-xl bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
       />
+      {userNameError && (
+        <p className="mb-4 text-red-500 text-sm">{userNameError}</p>
+      )}
 
       <select
         value={selectedCategoryId}

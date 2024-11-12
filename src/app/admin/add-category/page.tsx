@@ -6,9 +6,9 @@ import axios from "axios";
 import AdminSidebar from "@/components/AdminSidebar";
 
 const AddCategoryPage = () => {
-  const [categoryName, setCategoryName] = useState("");
+  const [category, setCategoryName] = useState("");
   const [categories, setCategories] = useState<Category[]>([]);
-
+  const [error,setError] =useState<string |null>(null)
   const fetchCategories = async () => {
     try {
       const response = await axios.get<{
@@ -23,8 +23,23 @@ const AddCategoryPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
 
-    if (!categoryName) return;
+    const categoryName=category.trim();
+
+    if (!categoryName) {
+      setError("category name is required")
+      return;
+    }
+
+    const categoryExists= categories.some(
+      (category)=>category.name.toLowerCase()=== categoryName.toLowerCase()
+)
+
+    if(categoryExists){
+      setError("category name already exists")
+      return
+    }
 
     try {
       const response = await axios.post<{
@@ -64,13 +79,14 @@ const AddCategoryPage = () => {
               <input
                 type="text"
                 id="categoryName"
-                value={categoryName}
+                value={category}
                 onChange={(e) => setCategoryName(e.target.value)}
                 required
                 className="w-full p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                 placeholder="Enter category name"
               />
             </div>
+            {error && <p className="text-sm text-red-600">{error}</p>}
 
             <button
               type="submit"
